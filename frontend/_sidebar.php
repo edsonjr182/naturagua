@@ -23,6 +23,7 @@
                     <a href="comodato.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Comodato</a>
                     <a href="movimento.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Movimento</a>
                     <a href="relatorios.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Relatórios</a>
+                    <a href="relatorio_movimento.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Extrato</a>
                 </div>
             </nav>
         </div>

@@ -70,6 +70,11 @@
           </div>
 
           <div class="bg-light rounded h-100 p-4">
+              <div class="input-group mb-3">
+  <input type="text" id="filtroCliente" class="form-control" placeholder="Filtrar por nome do cliente" oninput="fetchComodatos()">
+  <button class="btn btn-outline-secondary" type="button" onclick="fetchComodatos()">Filtrar</button>
+</div>
+
 
             <div class="table-responsive">
               <table class="table" id="listaClientes">
@@ -157,33 +162,41 @@
     });
 
     function fetchComodatos() {
-      fetch('../backend/controllers/comodato/buscarComodatos.php')
-        .then(response => response.json())
-        .then(comodatos => {
-          const tbody = document.getElementById('corpoListaComodato');
-          tbody.innerHTML = ''; // Limpa o corpo da tabela antes de adicionar novos dados
-          comodatos.forEach(comodato => {
-            const maxDevolucao = comodato.quantidade - comodato.devolvido;
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${comodato.nome_produto}</td>
-              <td>${comodato.nome_cliente}</td>
-              <td>${comodato.quantidade}</td>
-              <td>${comodato.devolvido}</td>
-              <td>
-              <form class="devolucaoForm d-flex align-items-center" style="gap: 10px;">
-                  <input type="hidden" name="emprestimoId" value="${comodato.id}">
-                  <input type="number" class="form-control" style="min-width: 40px;" name="quantidadeDevolvida" placeholder="QTD" min="0" max="${maxDevolucao}" required>
-                  <button type="submit" class="btn btn-success">Enviar</button>
-                </form>
-              </td>
-            `;
-            tbody.appendChild(tr);
-          });
+  const filtroCliente = document.getElementById('filtroCliente').value;
 
-        })
-        .catch(error => console.error('Erro ao buscar comodatos:', error));
-    }
+  fetch('../backend/controllers/comodato/buscarComodatos.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ filtro: filtroCliente })
+  })
+  .then(response => response.json())
+  .then(comodatos => {
+    const tbody = document.getElementById('corpoListaComodato');
+    tbody.innerHTML = ''; // Limpa o corpo da tabela antes de adicionar novos dados
+    comodatos.forEach(comodato => {
+      const maxDevolucao = comodato.quantidade - comodato.devolvido;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${comodato.nome_produto}</td>
+        <td>${comodato.nome_cliente}</td>
+        <td>${comodato.quantidade}</td>
+        <td>${comodato.devolvido}</td>
+        <td>
+        <form class="devolucaoForm d-flex align-items-center" style="gap: 10px;">
+            <input type="hidden" name="emprestimoId" value="${comodato.id}">
+            <input type="number" class="form-control" style="min-width: 40px;" name="quantidadeDevolvida" placeholder="QTD" min="0" max="${maxDevolucao}" required>
+            <button type="submit" class="btn btn-success">Enviar</button>
+          </form>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  })
+  .catch(error => console.error('Erro ao buscar comodatos:', error));
+}
+
 
 
     function fetchProdutos() {
