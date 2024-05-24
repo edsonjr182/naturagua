@@ -4,9 +4,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $host = 'localhost';
-$db   = 'u122714473_naturagua';
-$user = 'u122714473_naturagua';
-$pass = 'Morbidus@2938'; // Please ensure this is secured as mentioned earlier
+
+$db   = '';
+$user = '';
+$pass = '';
+
 $charset = 'utf8mb4';
 
 $options = [
