@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db   = 'u546883730_naturagua';
-$user = 'u546883730_naturagua';
-$pass = 'Ramunatra@2025';
+$db   = '';
+$user = '';
+$pass = '';
 $charset = 'utf8mb4';
 
 $options = [
